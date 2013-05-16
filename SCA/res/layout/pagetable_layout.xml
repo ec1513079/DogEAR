@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@drawable/tiled_background"
+    android:paddingLeft="10dp" >
+
+    <GridView
+        android:id="@+id/page_grid_view"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_alignParentTop="true"
+        android:layout_centerInParent="true"
+        android:columnWidth="@dimen/paga_item_width"
+        android:gravity="center"
+        android:horizontalSpacing="@dimen/paga_item_image_margin"
+        android:numColumns="auto_fit"
+        android:stretchMode="columnWidth"
+        android:verticalSpacing="@dimen/paga_item_image_margin" >
+
+    </GridView>
+
+</RelativeLayout>

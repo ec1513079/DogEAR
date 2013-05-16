@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:paddingLeft="8dp" >
+
+    <TextView
+        android:id="@+id/shelf_item_name"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/shelf_list_icon_size"
+        android:layout_toRightOf="@+id/shelf_item_icon"
+        android:gravity="center_vertical"
+        android:text="hoge"
+        android:textAppearance="?android:attr/textAppearanceLarge" />
+
+    <ImageView
+        android:id="@+id/shelf_item_icon"
+        android:layout_width="@dimen/shelf_list_icon_size"
+        android:layout_height="@dimen/shelf_list_icon_size"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentTop="true"
+        android:paddingBottom="8dp"
+        android:paddingLeft="8dp"
+        android:paddingRight="8dp"
+        android:paddingTop="8dp"
+        android:src="@drawable/ic_droid" />
+
+</RelativeLayout>

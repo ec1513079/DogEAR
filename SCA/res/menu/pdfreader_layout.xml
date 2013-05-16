@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android" >
+    
+    <item android:id="@+id/action_add_bookmark" android:title="ブックマークを追加" android:orderInCategory="0"></item>
+    <item android:id="@+id/action_to_grid_view" android:title="ページ一覧" android:orderInCategory="1"></item>
+    <item android:id="@+id/action_open_memo" android:title="メモ" android:orderInCategory="2"></item>
+    <item android:id="@+id/action_send_by_mail" android:title="メール送信" android:orderInCategory="3"></item>
+    <item android:id="@+id/action_pdf_open_in" android:title="アプリケーションで開く" android:orderInCategory="4" ></item>
+    <item android:id="@+id/action_pdf_close" android:title="閉じる" android:orderInCategory="5"></item>
+
+</menu>
