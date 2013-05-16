@@ -8,7 +8,7 @@
 git@gitlab.mobilegate.biz:kotakahashi/scaforandroid.git からPull
 
 mupdfを取得
-$ git module update
+$ git submodule update
 
 まずはmupdfライブラリをセットアップ
 
