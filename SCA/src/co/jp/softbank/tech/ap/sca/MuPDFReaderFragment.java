@@ -112,7 +112,7 @@ public class MuPDFReaderFragment extends Fragment {
 			if (core == null)
 			{
 				AlertDialog alert = mAlertBuilder.create();
-				alert.setTitle(R.string.open_failed);
+				alert.setTitle(R.string.cannot_open_document);
 				alert.setButton(AlertDialog.BUTTON_POSITIVE, getString(R.string.dismiss),
 						new DialogInterface.OnClickListener() {
 							public void onClick(DialogInterface dialog, int which) {
@@ -133,7 +133,7 @@ public class MuPDFReaderFragment extends Fragment {
 		AlertDialog alert = mAlertBuilder.create();
 		alert.setTitle(R.string.enter_password);
 		alert.setView(mPasswordView);
-		alert.setButton(AlertDialog.BUTTON_POSITIVE, getString(R.string.ok),
+		alert.setButton(AlertDialog.BUTTON_POSITIVE, getString(R.string.okay),
 				new DialogInterface.OnClickListener() {
 			public void onClick(DialogInterface dialog, int which) {
 				if (core.authenticatePassword(mPasswordView.getText().toString())) {
@@ -262,7 +262,7 @@ public class MuPDFReaderFragment extends Fragment {
 	public void onSaveInstanceState(Bundle outState) {
 		super.onSaveInstanceState(outState);
 		if (mFileName != null && mDocView != null) 
-			outState.putString(getString(R.string.filename), mFileName);
+			outState.putString(PDF_FILE_PATH, mFileName);
 		if (!mButtonsVisible)
 			outState.putBoolean("ButtonsHidden", true);
 		if (core != null && mDocView != null)

@@ -48,5 +48,8 @@ Eclipseで/mupdf/android のプロジェクトを開き
 　　「ライブラリ」チェックボックスをON
 2. SCAプロジェクトのプロパティ - Android - ライブラリパネルで
 　　mupdfを参照ライブラリとして登録。
-
+3. SCAプロジェクトのプロパティ - Jacaのビルド・パス - プロジェクト - 追加
+　　でChoosePDFActivityを追加。
+4. SCAプロジェクトのプロパティ - Jacaのビルド・パス - 順番およびエクスポート 
+　　でChoosePDFActivityにチェックを付け、一番上に持っていく。
 これでビルドが通るはず。
