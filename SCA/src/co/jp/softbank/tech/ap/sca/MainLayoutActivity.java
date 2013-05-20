@@ -294,6 +294,12 @@ public class MainLayoutActivity extends FragmentActivity implements OnSelectFile
 		replaceSideContent(sideFragment);
 	}
 	
+	void showBookmarkFragment() {
+		
+		BookmarkFragment sideFragment = new BookmarkFragment();
+		replaceSideContent(sideFragment);
+	}
+	
 	@SuppressLint("DefaultLocale")
 	void showPDFPagerFragment(File file) {
 		
@@ -306,9 +312,9 @@ public class MainLayoutActivity extends FragmentActivity implements OnSelectFile
 		isPDFViewing = true;
 		getActionBar().setDisplayHomeAsUpEnabled(isPDFViewing);
 
-		MuPDFReaderFragment fragment = new MuPDFReaderFragment();
+		PDFReaderFragment fragment = new PDFReaderFragment();
 		Bundle bundle = new Bundle();
-		bundle.putString(MuPDFReaderFragment.PDF_FILE_PATH, file.getAbsolutePath());
+		bundle.putString(PDFReaderFragment.PDF_FILE_PATH, file.getAbsolutePath());
 		fragment.setArguments(bundle);
 		replaceMainContent(fragment);
 	}
@@ -324,14 +330,13 @@ public class MainLayoutActivity extends FragmentActivity implements OnSelectFile
 
 		if (tabId == TAB_ID_CATEGORY) {
 			showCategoryFragment();
-		} else if (tabId == TAB_ID_CATEGORY) {
+		} else if (tabId == TAB_ID_BOOKMARK) {
+			showBookmarkFragment();
+		} else if (tabId == TAB_ID_BROWSE_HISTORY) {
 			
-		} else if (tabId == TAB_ID_CATEGORY) {
-			
-		} else if (tabId == TAB_ID_CATEGORY) {
+		} else if (tabId == TAB_ID_DOWNLOAD) {
 			
 		}
-		
 	}
 
 }

@@ -46,7 +46,7 @@ import com.artifex.mupdfdemo.*;
 import co.jp.softbank.tech.ap.sca.R;
 import co.jp.softbank.tech.ap.sca.R.layout;
 
-public class MuPDFReaderFragment extends Fragment {
+public class PDFReaderFragment extends Fragment {
 	
 	/* PDF File */
 	public static final String PDF_FILE_PATH = "pdf_file_path";
@@ -66,7 +66,7 @@ public class MuPDFReaderFragment extends Fragment {
 	private final Handler mHandler = new Handler();
 	private AsyncTask<Void,Void,MuPDFAlert> mAlertTask;
 	
-	public MuPDFReaderFragment() {
+	public PDFReaderFragment() {
 	}
 	
 	private MuPDFCore openFile(String path)
@@ -253,6 +253,9 @@ public class MuPDFReaderFragment extends Fragment {
 			return false;
 		case R.id.action_pdf_open_in:
 			openInPDF();
+			return false;
+		case R.id.action_add_bookmark:
+			Util.addBookmark(getActivity(), new File(mFileName), mDocView.getDisplayedViewIndex());
 			return false;
 		}
 		return super.onOptionsItemSelected(item);
