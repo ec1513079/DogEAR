@@ -3,40 +3,50 @@ package co.jp.softbank.tech.ap.sca;
 import java.util.ArrayList;
 import java.util.LinkedList;
 
+import android.content.Context;
+import android.database.sqlite.SQLiteDatabase;
+import android.provider.ContactsContract.Contacts.Data;
 import android.util.SparseArray;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
 
-public class BookmarkAdapter extends BaseAdapter {
+public class BookmarkAdapter extends DatabaseBaseAdapter {
 	
-	LinkedList<String> mBookmarks;
-
-	public BookmarkAdapter() {
-		mBookmarks = new LinkedList<String>();
+	private static final String TABLE_NAME = "bookmark";
+	
+	public BookmarkAdapter(Context context) {
+		super(context, new BookmarkDatabaseHelper(context));
 	}
 	
-	@Override
-	public int getCount() {
-		return mBookmarks.size();
-	}
+	public static class BookmarkDatabaseHelper extends DatabaseBaseHelper {
 
-	@Override
-	public Object getItem(int position) {
-		// TODO 自動生成されたメソッド・スタブ
-		return null;
+		public BookmarkDatabaseHelper(Context context) {
+			super(context);
+		}
+		
+		@Override
+		public void onCreate(SQLiteDatabase db) {
+			super.onCreate(db);
+			db.execSQL(BookmarkDatabaseColumns.SQL_CREATE_TABLE);
+		}
 	}
-
-	@Override
-	public long getItemId(int position) {
-		// TODO 自動生成されたメソッド・スタブ
-		return 0;
+	
+	public static interface BookmarkDatabaseColumns extends DatabaseBaseColumns {
+		
+		public static final String DB_BOOKMARK_COLUMNS_CDATE = "cdate";
+		public static final String DB_BOOKMARK_COLUMNS_MDATE = "mdate";
+		public static final String DB_BOOKMARK_COLUMNS_HASH  = "hash";
+		public static final String DB_BOOKMARK_COLUMNS_PAGE  = "page";
+		public static final String DB_BOOKMARK_COLUMNS_TITLE = "title";
+		
+		public static final String SQL_CREATE_TABLE	=
+			CREATE_TABLE + TABLE_NAME + "(" +
+			_ID + " INTEGER NOT NULL PRIMARY KEY,"  +
+			DB_BOOKMARK_COLUMNS_CDATE + " INTEGER," +
+			DB_BOOKMARK_COLUMNS_MDATE + " INTEGER," +
+			DB_BOOKMARK_COLUMNS_HASH  + " TEXT,"    +
+			DB_BOOKMARK_COLUMNS_PAGE  + " INTEGER," +
+			DB_BOOKMARK_COLUMNS_TITLE + " TEXT"     + ")";
 	}
-
-	@Override
-	public View getView(int position, View convertView, ViewGroup parent) {
-		// TODO 自動生成されたメソッド・スタブ
-		return null;
-	}
-
 }
