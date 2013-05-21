@@ -28,7 +28,7 @@ public class Util {
 
 			BookmarkAdapter dbAdapter = null;
 			try {
-				dbAdapter = new BookmarkAdapter(context);
+				dbAdapter = new BookmarkAdapter(context, false);
 				dbAdapter.insert(values);
 			} catch (Exception e) {
 				e.printStackTrace();

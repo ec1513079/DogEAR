@@ -15,12 +15,11 @@ public class DatabaseBaseAdapter {
 	protected DatabaseBaseHelper mHelper;
 	protected SQLiteDatabase mDB;
 	
-	public DatabaseBaseAdapter(Context context, DatabaseBaseHelper helper) {
+	public DatabaseBaseAdapter(Context context, DatabaseBaseHelper helper, boolean readonly) {
 		try {
 			mContext = context;
 			mHelper  = helper;
-			mDB      = helper.getWritableDatabase();
-			mDB.beginTransaction();
+			mDB      = readonly ? helper.getReadableDatabase() : helper.getWritableDatabase();
 		} catch (Exception e) {
 			e.printStackTrace();
 			try {
@@ -32,8 +31,6 @@ public class DatabaseBaseAdapter {
 	
 	public void close(boolean commit) {
 		if (mDB != null) {
-			if (commit) mDB.setTransactionSuccessful();
-			mDB.endTransaction();
 			mDB.close();
 			mDB = null;
 		}
@@ -60,5 +57,6 @@ public class DatabaseBaseAdapter {
 	
 	public static interface DatabaseBaseColumns extends BaseColumns {
 		public static final String CREATE_TABLE = "CREATE TABLE ";
+		public static final String DROP_TABLE   = "DROP TABLE IF EXISTS ";
 	}
 }

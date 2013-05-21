@@ -21,7 +21,11 @@ public class BookmarkAdapter extends DatabaseBaseAdapter {
 	private static final String TABLE_NAME = "bookmark";
 	
 	public BookmarkAdapter(Context context) {
-		super(context, new BookmarkDatabaseHelper(context));
+		super(context, new BookmarkDatabaseHelper(context), true);
+	}
+	
+	public BookmarkAdapter(Context context, boolean readonly) {
+		super(context, new BookmarkDatabaseHelper(context), readonly);
 	}
 	
 	public long insert(ContentValues values) throws SQLException {
@@ -59,6 +63,13 @@ public class BookmarkAdapter extends DatabaseBaseAdapter {
 			super.onCreate(db);
 			db.execSQL(BookmarkDatabaseColumns.SQL_CREATE_TABLE);
 		}
+		
+		@Override
+		public void onUpgrade(SQLiteDatabase db, int oldVersion, int newVersion) {
+			super.onUpgrade(db, oldVersion, newVersion);
+			db.execSQL(BookmarkDatabaseColumns.SQL_DROP_TABLE);
+			onCreate(db);
+		}
 	}
 	
 	public static interface BookmarkDatabaseColumns extends DatabaseBaseColumns {
@@ -79,5 +90,8 @@ public class BookmarkAdapter extends DatabaseBaseAdapter {
 			DB_BOOKMARK_COLUMNS_PAGE  + " INTEGER," +
 			DB_BOOKMARK_COLUMNS_TITLE + " TEXT, "     +
 			DB_BOOKMARK_COLUMNS_PATH  + " TEXT"     + ")";
+		
+		public static final String SQL_DROP_TABLE = 
+	            DROP_TABLE + TABLE_NAME;
 	}
 }
