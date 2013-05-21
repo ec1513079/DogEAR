@@ -2,8 +2,6 @@ package co.jp.softbank.tech.ap.sca;
 
 import java.io.File;
 
-import co.jp.softbank.tech.ap.sca.BookmarkAdapter.BookmarkDatabaseColumns;
-
 import android.app.Activity;
 import android.database.Cursor;
 import android.net.Uri;
@@ -17,6 +15,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ListView;
+import android.widget.TextView;
 
 public class BookmarkFragment extends ListFragment implements LoaderCallbacks<Cursor> {
 	
@@ -43,14 +42,12 @@ public class BookmarkFragment extends ListFragment implements LoaderCallbacks<Cu
 		
 		getLoaderManager().initLoader(0, null, this);
 
-		String from[] = {BookmarkDatabaseColumns.DB_BOOKMARK_COLUMNS_TITLE};
-		int to[]   = {R.id.bookmark_item_name};
-		
 		mListAdapter = new SimpleCursorAdapter(
 				getActivity(),
 				R.layout.bookmark_list_item_layout,
 				null,
-				from, to,
+				new String[] { BookmarkProvider.BookmarkDatabaseColumns.DB_BOOKMARK_COLUMNS_TITLE, BookmarkProvider.BookmarkDatabaseColumns.DB_BOOKMARK_COLUMNS_PATH }, 
+				new int[]    { R.id.bookmark_item_name, R.id.bookmark_item_path },
 				SimpleCursorAdapter.FLAG_REGISTER_CONTENT_OBSERVER);
 		
 		View root = inflater.inflate(R.layout.bookmark_fragment, null);
@@ -63,27 +60,29 @@ public class BookmarkFragment extends ListFragment implements LoaderCallbacks<Cu
 	@Override
 	public void onDestroy() {
 		super.onDestroy();
+		getLoaderManager().destroyLoader(0);
 	}
 	
 	@Override
 	public void onListItemClick(ListView l, View v, int position, long id) {
 		super.onListItemClick(l, v, position, id);
 		
-//		ShelfItem item = (ShelfItem) getListView().getItemAtPosition(position);
-//		File file = new File(item.path);
-//		
-//		mOnSelectFileListenr.onSelectedFile(file);
+		TextView pathView = (TextView)v.findViewById(R.id.bookmark_item_path);
+		String   path     = pathView.getText().toString(); 
+		File     file     = new File(path);
+		
+		mOnSelectFileListenr.onSelectedFile(file);
 	}
 
 	@Override
 	public Loader<Cursor> onCreateLoader(int arg0, Bundle arg1) {
-		return new CursorLoader(getActivity()) {
-			@Override
-			public Cursor loadInBackground() {
-				BookmarkAdapter adapter = new BookmarkAdapter(getContext(), true);
-				return adapter.getAllRows();
-			}
-		};
+		return new CursorLoader(
+				this.getActivity(),
+				Uri.parse(BookmarkProvider.CONTENT_URI),
+				null,
+				null,
+				null,
+				null);
 	}
 
 	@Override

@@ -1,47 +1,185 @@
 package co.jp.softbank.tech.ap.sca;
 
+import java.util.List;
+
 import android.content.ContentProvider;
+import android.content.ContentUris;
 import android.content.ContentValues;
+import android.content.Context;
+import android.content.UriMatcher;
 import android.database.Cursor;
+import android.database.sqlite.SQLiteDatabase;
+import android.database.sqlite.SQLiteOpenHelper;
 import android.net.Uri;
+import android.provider.BaseColumns;
 
 public class BookmarkProvider extends ContentProvider {
-
-	@Override
-	public int delete(Uri arg0, String arg1, String[] arg2) {
-		// TODO 自動生成されたメソッド・スタブ
-		return 0;
-	}
-
-	@Override
-	public String getType(Uri arg0) {
-		// TODO 自動生成されたメソッド・スタブ
-		return null;
-	}
-
-	@Override
-	public Uri insert(Uri arg0, ContentValues arg1) {
-		// TODO 自動生成されたメソッド・スタブ
-		return null;
-	}
+	
+    private static final String AUTHORITY = "co.jp.softbank.tech.ap.sca.BookmarkProvider";
+    private static final UriMatcher sUriMatcher;
+    static {
+    	sUriMatcher = new UriMatcher(UriMatcher.NO_MATCH);
+        sUriMatcher.addURI(AUTHORITY, BookmarkDatabaseColumns.TABLE_NAME, 0);
+    }
+    public static final String CONTENT_URI = "content://" + AUTHORITY + "/" + BookmarkDatabaseColumns.TABLE_NAME;
+    
+    private SQLiteOpenHelper mSQLiteOpenHelper;
 
 	@Override
 	public boolean onCreate() {
-		// TODO 自動生成されたメソッド・スタブ
+		mSQLiteOpenHelper = new BookmarkDatabaseHelper(getContext());
 		return false;
 	}
 
 	@Override
-	public Cursor query(Uri arg0, String[] arg1, String arg2, String[] arg3,
-			String arg4) {
-		// TODO 自動生成されたメソッド・スタブ
-		return null;
+	public Cursor query(Uri uri, String[] projection, String selection, String[] selectionArgs, String sortOrder) {
+		if(sUriMatcher.match(uri) < 0)
+			throw new IllegalArgumentException("unknown uri : " + uri);
+		
+		SQLiteDatabase db = mSQLiteOpenHelper.getReadableDatabase();
+		Cursor cursor = db.query(
+				uri.getPathSegments().get(0),
+				projection,
+				appendSelection(uri, selection),
+                appendSelectionArgs(uri, selectionArgs),
+				null,
+				null,
+				sortOrder);
+		cursor.setNotificationUri(getContext().getContentResolver(), uri);
+		return cursor;
 	}
 
 	@Override
-	public int update(Uri arg0, ContentValues arg1, String arg2, String[] arg3) {
-		// TODO 自動生成されたメソッド・スタブ
-		return 0;
+	public Uri insert(Uri uri, ContentValues values) {
+		if(sUriMatcher.match(uri) < 0)
+			throw new IllegalArgumentException("unknown uri : " + uri);
+		
+        SQLiteDatabase db = mSQLiteOpenHelper.getWritableDatabase();
+        final long rowId = db.insertOrThrow(uri.getPathSegments().get(0), null, values);
+        Uri returnUri = Uri.parse(CONTENT_URI + "/" + rowId);
+        getContext().getContentResolver().notifyChange(returnUri, null);
+        return returnUri;
+    }
+	
+	@Override
+	public int delete(Uri uri, String selection, String[] selectionArgs) {
+		if(sUriMatcher.match(uri) < 0)
+			throw new IllegalArgumentException("unknown uri : " + uri);
+		
+        SQLiteDatabase db = mSQLiteOpenHelper.getWritableDatabase();
+        final int count = db.delete(
+        		uri.getPathSegments().get(0),
+        		appendSelection(uri, selection),
+        		appendSelectionArgs(uri, selectionArgs));
+        getContext().getContentResolver().notifyChange(uri, null);
+        return count;
+    }
+
+	@Override
+	 public int update(Uri uri, ContentValues values, String selection, String[] selectionArgs) {
+		if(sUriMatcher.match(uri) < 0)
+			throw new IllegalArgumentException("unknown uri : " + uri);
+		
+        SQLiteDatabase db = mSQLiteOpenHelper.getWritableDatabase();
+        final int count = db.update(
+        		uri.getPathSegments().get(0),
+        		values,
+        		appendSelection(uri, selection),
+        		appendSelectionArgs(uri, selectionArgs));
+        getContext().getContentResolver().notifyChange(uri, null);
+        return count;
 	}
 
+	@Override
+	public String getType(Uri uri) {
+		if(sUriMatcher.match(uri) < 0)
+			throw new IllegalArgumentException("unknown uri : " + uri);
+		
+		return null;
+	}
+	
+	/**
+     * Uriで_idの指定があった場合, selectionにそれを連結して返す.
+     * 
+     * @param uri Uri
+     * @param selection 絞り込み条件
+     * @return _idの条件が連結されたselection
+     */
+    private String appendSelection(Uri uri, String selection) {
+        List<String> pathSegments = uri.getPathSegments();
+        if (pathSegments.size() == 1) {
+            return selection;
+        }
+        return BaseColumns._ID + " = ?" + (selection == null ? "" : " AND (" + selection + ")");
+    }
+     
+    /**
+     * Uriで_idの指定があった場合, selectionArgsにそれを連結して返す.
+     * 
+     * @param uri Uri
+     * @param selectionArgs 絞り込み条件の引数
+     * @return _idの条件が連結されたselectionArgs
+     */
+    private String[] appendSelectionArgs(Uri uri, String[] selectionArgs) {
+        List<String> pathSegments = uri.getPathSegments();
+        if (pathSegments.size() == 1) {
+            return selectionArgs;
+        }
+        if (selectionArgs == null || selectionArgs.length == 0) {
+            return new String[] {pathSegments.get(1)};
+        }
+        String[] returnArgs = new String[selectionArgs.length + 1];
+        returnArgs[0] = pathSegments.get(1);
+        System.arraycopy(selectionArgs, 0, returnArgs, 1, selectionArgs.length);
+        return returnArgs;
+    }
+	
+	public static class BookmarkDatabaseHelper extends SQLiteOpenHelper {
+		
+		static final String DATABASE_NAME  = "sca.db";
+		static final int DATABASE_VERSION  = 1;
+
+		public BookmarkDatabaseHelper(Context context) {
+			super(context, DATABASE_NAME, null, DATABASE_VERSION);
+		}
+		
+		@Override
+		public void onCreate(SQLiteDatabase db) {
+			db.execSQL(BookmarkDatabaseColumns.SQL_CREATE_TABLE);
+		}
+		
+		@Override
+		public void onUpgrade(SQLiteDatabase db, int oldVersion, int newVersion) {
+			db.execSQL(BookmarkDatabaseColumns.SQL_DROP_TABLE);
+			onCreate(db);
+		}
+	}
+
+	public static interface BookmarkDatabaseColumns extends BaseColumns {
+		
+		public static final String CREATE_TABLE = "CREATE TABLE ";
+		public static final String DROP_TABLE   = "DROP TABLE IF EXISTS ";
+		
+		public static final String TABLE_NAME   = "bookmark";
+
+		public static final String DB_BOOKMARK_COLUMNS_CDATE = "cdate";
+		public static final String DB_BOOKMARK_COLUMNS_MDATE = "mdate";
+		public static final String DB_BOOKMARK_COLUMNS_HASH  = "hash";
+		public static final String DB_BOOKMARK_COLUMNS_PAGE  = "page";
+		public static final String DB_BOOKMARK_COLUMNS_TITLE = "title";
+		public static final String DB_BOOKMARK_COLUMNS_PATH  = "path";
+		
+		public static final String SQL_CREATE_TABLE	=
+			CREATE_TABLE + TABLE_NAME + "(" +
+			_ID + " INTEGER NOT NULL PRIMARY KEY,"  +
+			DB_BOOKMARK_COLUMNS_CDATE + " INTEGER," +
+			DB_BOOKMARK_COLUMNS_MDATE + " INTEGER," +
+			DB_BOOKMARK_COLUMNS_HASH  + " TEXT,"    +
+			DB_BOOKMARK_COLUMNS_PAGE  + " INTEGER," +
+			DB_BOOKMARK_COLUMNS_TITLE + " TEXT, "     +
+			DB_BOOKMARK_COLUMNS_PATH  + " TEXT"     + ")";
+		
+		public static final String SQL_DROP_TABLE = 
+	            DROP_TABLE + TABLE_NAME;
+	}
 }

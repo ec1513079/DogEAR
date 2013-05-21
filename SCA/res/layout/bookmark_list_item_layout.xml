@@ -25,4 +25,12 @@
         android:paddingTop="8dp"
         android:src="@drawable/bookmark" />
 
+    <TextView
+        android:id="@+id/bookmark_item_path"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentTop="true"
+        android:visibility="invisible" />
+
 </RelativeLayout>

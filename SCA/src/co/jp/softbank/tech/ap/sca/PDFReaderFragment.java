@@ -54,6 +54,7 @@ public class PDFReaderFragment extends Fragment {
 
 	private MuPDFCore    core;
 	private String       mFileName;
+	private String       mFilePath;
 	private MuPDFReaderView mDocView;
 	private View         mButtonsView;
 	private boolean      mButtonsVisible;
@@ -72,6 +73,7 @@ public class PDFReaderFragment extends Fragment {
 	private MuPDFCore openFile(String path)
 	{
 		int lastSlashPos = path.lastIndexOf('/');
+		mFilePath = path;
 		mFileName = new String(lastSlashPos == -1
 					? path
 					: path.substring(lastSlashPos+1));
@@ -215,7 +217,8 @@ public class PDFReaderFragment extends Fragment {
 					boolean fromUser) {
 				if (core == null)
 					return;
-				mPageNumberView.setText(String.format("%d / %d", ((progress+mPageSliderRes/2)/mPageSliderRes)+1, core.countPages()));
+				mPageNumberView.setText(String.format("%d / %d", 
+						((progress+mPageSliderRes/2)/mPageSliderRes)+1, core.countPages()));
 			}
 		});
 
@@ -255,7 +258,7 @@ public class PDFReaderFragment extends Fragment {
 			openInPDF();
 			return false;
 		case R.id.action_add_bookmark:
-			Util.addBookmark(getActivity(), new File(mFileName), mDocView.getDisplayedViewIndex());
+			Util.addBookmark(getActivity(), new File(mFilePath), mDocView.getDisplayedViewIndex());
 			return false;
 		}
 		return super.onOptionsItemSelected(item);
@@ -264,8 +267,8 @@ public class PDFReaderFragment extends Fragment {
 	@Override
 	public void onSaveInstanceState(Bundle outState) {
 		super.onSaveInstanceState(outState);
-		if (mFileName != null && mDocView != null) 
-			outState.putString(PDF_FILE_PATH, mFileName);
+		if (mFilePath != null && mDocView != null) 
+			outState.putString(PDF_FILE_PATH, mFilePath);
 		if (!mButtonsVisible)
 			outState.putBoolean("ButtonsHidden", true);
 		if (core != null && mDocView != null)
