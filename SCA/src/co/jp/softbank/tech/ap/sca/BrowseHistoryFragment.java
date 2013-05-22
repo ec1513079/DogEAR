@@ -1,6 +1,8 @@
 package co.jp.softbank.tech.ap.sca;
 
 import java.io.File;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 
 import android.app.Activity;
 import android.database.Cursor;
@@ -52,6 +54,18 @@ public class BrowseHistoryFragment extends ListFragment implements LoaderCallbac
 					BrowseHistoryProvider.BrowseHistoryDatabaseColumns.DB_COLUMNS_CDATE }, 
 				new int[] { R.id.history_item_name, R.id.history_item_path, R.id.history_item_date },
 				SimpleCursorAdapter.FLAG_REGISTER_CONTENT_OBSERVER);
+		mListAdapter.setViewBinder(new SimpleCursorAdapter.ViewBinder() {
+			@Override
+			public boolean setViewValue(View view, Cursor cursor, int columnIndex) {
+				if (view.getId() == R.id.history_item_date) {
+					long cdate = cursor.getLong(columnIndex);
+					SimpleDateFormat simpleDateFormat = new SimpleDateFormat("yyyy/MM/dd HH:mm:ss");
+					((TextView)view).setText(simpleDateFormat.format(new Date(cdate)));
+					return true;
+				}
+				return false;
+			}
+		});
 		
 		View root = inflater.inflate(R.layout.history_fragment, null);
 		mListView = (ListView)root.findViewById(android.R.id.list);
@@ -85,7 +99,7 @@ public class BrowseHistoryFragment extends ListFragment implements LoaderCallbac
 				null,
 				null,
 				null,
-				null);
+				BrowseHistoryProvider.BrowseHistoryDatabaseColumns.DB_COLUMNS_CDATE + " DESC");
 	}
 
 	@Override
