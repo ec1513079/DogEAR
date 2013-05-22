@@ -4,6 +4,9 @@ import java.io.File;
 
 import android.content.ContentValues;
 import android.content.Context;
+import android.content.pm.PackageInfo;
+import android.content.pm.PackageManager;
+import android.content.pm.PackageManager.NameNotFoundException;
 import android.net.Uri;
 import android.provider.Browser.BookmarkColumns;
 import android.telephony.TelephonyManager;
@@ -50,5 +53,17 @@ public class Util {
 		} catch (NullPointerException e) {
 			e.printStackTrace();
 		}
+	}
+	
+	public static String getApplicationVersion(Context context) {
+		String versionName = null;
+        PackageManager packageManager = context.getPackageManager();
+		try {
+			PackageInfo packageInfo = packageManager.getPackageInfo(context.getPackageName(), PackageManager.GET_ACTIVITIES);
+            versionName = packageInfo.versionName;
+        } catch (NameNotFoundException e) {
+		        e.printStackTrace();
+		}
+		return versionName;
 	}
 }

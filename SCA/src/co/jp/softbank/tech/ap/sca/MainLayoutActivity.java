@@ -162,6 +162,7 @@ public class MainLayoutActivity extends FragmentActivity implements OnSelectFile
 	public boolean onOptionsItemSelected(MenuItem item) {
 		switch (item.getItemId()) {
 		case R.id.action_settings:
+			showPreferenceActivity();
 			return false;
 		case android.R.id.home:
 			showShelfFragment();
@@ -330,6 +331,13 @@ public class MainLayoutActivity extends FragmentActivity implements OnSelectFile
 				
 		// Register history
 		Util.addBrowseHistory(this, currentFile);
+	}
+	
+	void showPreferenceActivity() {
+		Intent intent = new Intent();
+		intent.setAction(Intent.ACTION_VIEW);
+		intent.setClass(this, SCAPreferenceActivity.class);
+		startActivity(intent);
 	}
 
 	@Override

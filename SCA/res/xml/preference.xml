@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="utf-8"?>
+<PreferenceScreen xmlns:android="http://schemas.android.com/apk/res/android" >
+    <PreferenceCategory android:title="情報">
+        <Preference android:title="アプリバージョン" android:key="preference_app_version" android:selectable="false"/>
+        <Preference android:selectable="false" android:title="カテゴリ更新日時" android:key="preference_category_update"/>
+        <Preference android:title="コンテンツデータ容量" android:key="preference_contents_data_size" android:selectable="false" />
+        <Preference android:title="キャッシュ容量" android:key="preferecnce_chach_size" android:selectable="false" />
+        <Preference android:key="preference_usalbe_size" android:title="空き容量" android:selectable="false" />
+    </PreferenceCategory>
+    <PreferenceCategory android:title="設定">
+        <EditTextPreference android:title="接続先" android:key="preference_connect_url" android:defaultValue="https://com1.mobilegate.biz/api/catalogs.json"/>
+        <EditTextPreference android:title="ユーザアカウント設定" android:key="preference_user_name" android:defaultValue="kotakahashitest"/>
+        <SwitchPreference android:title="タップでページ送り" android:key="preference_page_move_by_tap"/>
+        
+    <SwitchPreference android:title="プレゼンモード" android:key="preference_presentation_mode" /></PreferenceCategory><PreferenceCategory android:title="セキュリティ">
+    <Preference android:title="コンテンツをリセット" android:key="preference_contents_reset"/>
+    <Preference android:title="キャッシュをクリア" android:key="preference_cache_clear"/>
+    
+</PreferenceCategory><PreferenceCategory android:title="License">
+    <Preference android:key="preference_copyright_law" android:title="著作権情報"/>
+</PreferenceCategory>
+    
+
+</PreferenceScreen>
