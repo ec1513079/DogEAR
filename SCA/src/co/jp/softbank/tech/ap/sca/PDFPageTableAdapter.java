@@ -44,11 +44,11 @@ public class PDFPageTableAdapter extends BaseAdapter {
 	@Override
 	public View getView(final int position, View convertView, ViewGroup parent) {
 
-		final PDFPageItemView rootView;
+		final PDFPageTableItemView rootView;
 		if (convertView == null) {
-			rootView = new PDFPageItemView(mContext, mMuPDFCore, position);
+			rootView = new PDFPageTableItemView(mContext, mMuPDFCore, position);
 		} else {
-			rootView = (PDFPageItemView)convertView;
+			rootView = (PDFPageTableItemView)convertView;
 		}
 		
 		PointF pageSize = mMuPDFCore.getPageSize(position);

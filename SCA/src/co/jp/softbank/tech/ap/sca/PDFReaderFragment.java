@@ -233,6 +233,10 @@ public class PDFReaderFragment extends Fragment {
 		layout.addView(mDocView);
 		layout.addView(mButtonsView);
 		layout.setBackgroundResource(R.drawable.tiled_background);
+		
+		// Move page
+		int page = getArguments().getInt(PDF_DISPLAYED_PAGE, 0);
+		mDocView.setDisplayedViewIndex(page);
 
 		return layout;
 	}

@@ -188,12 +188,12 @@ public class MainLayoutActivity extends FragmentActivity implements OnSelectFile
 
 	@SuppressLint("DefaultLocale")
 	@Override
-	public void onSelectedFile (File file) {
+	public void onSelectedFile (File file, int page) {
 		if (file.isDirectory()) {
 			mHistory.add(mDirectory.getAbsolutePath());
 			changeDirectory(file);
 		} else if (file.getName().toLowerCase().endsWith(".pdf")) {
-			showPDFPagerFragment(file);
+			showPDFPagerFragment(file, page);
 		}
 	}
 	
@@ -301,7 +301,7 @@ public class MainLayoutActivity extends FragmentActivity implements OnSelectFile
 	}
 	
 	@SuppressLint("DefaultLocale")
-	void showPDFPagerFragment(File file) {
+	void showPDFPagerFragment(File file, int page) {
 		
 		if (!file.getName().toLowerCase().endsWith(".pdf"))
 			return;
@@ -315,14 +315,9 @@ public class MainLayoutActivity extends FragmentActivity implements OnSelectFile
 		PDFReaderFragment fragment = new PDFReaderFragment();
 		Bundle bundle = new Bundle();
 		bundle.putString(PDFReaderFragment.PDF_FILE_PATH, file.getAbsolutePath());
+		bundle.putInt(PDFReaderFragment.PDF_DISPLAYED_PAGE, page);
 		fragment.setArguments(bundle);
 		replaceMainContent(fragment);
-	}
-
-	public void showPDFPagerFragment() {
-		if (currentFile == null)
-			return;
-		showPDFPagerFragment(currentFile);
 	}
 
 	@Override

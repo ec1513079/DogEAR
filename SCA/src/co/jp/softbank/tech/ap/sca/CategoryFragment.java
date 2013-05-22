@@ -47,7 +47,7 @@ public class CategoryFragment extends ListFragment {
 		ShelfItem item = (ShelfItem) getListView().getItemAtPosition(position);
 		File file = new File(item.path);
 		
-		mOnSelectFileListenr.onSelectedFile(file);
+		mOnSelectFileListenr.onSelectedFile(file, 0);
 	}
 
 	@Override

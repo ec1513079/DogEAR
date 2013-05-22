@@ -46,8 +46,11 @@ public class BookmarkFragment extends ListFragment implements LoaderCallbacks<Cu
 				getActivity(),
 				R.layout.bookmark_list_item_layout,
 				null,
-				new String[] { BookmarkProvider.BookmarkDatabaseColumns.DB_BOOKMARK_COLUMNS_TITLE, BookmarkProvider.BookmarkDatabaseColumns.DB_BOOKMARK_COLUMNS_PATH }, 
-				new int[]    { R.id.bookmark_item_name, R.id.bookmark_item_path },
+				new String[] { 
+					BookmarkProvider.BookmarkDatabaseColumns.DB_BOOKMARK_COLUMNS_TITLE,
+					BookmarkProvider.BookmarkDatabaseColumns.DB_BOOKMARK_COLUMNS_PATH,
+					BookmarkProvider.BookmarkDatabaseColumns.DB_BOOKMARK_COLUMNS_PAGE }, 
+				new int[] { R.id.bookmark_item_name, R.id.bookmark_item_path, R.id.bookmark_item_page },
 				SimpleCursorAdapter.FLAG_REGISTER_CONTENT_OBSERVER);
 		
 		View root = inflater.inflate(R.layout.bookmark_fragment, null);
@@ -71,7 +74,10 @@ public class BookmarkFragment extends ListFragment implements LoaderCallbacks<Cu
 		String   path     = pathView.getText().toString(); 
 		File     file     = new File(path);
 		
-		mOnSelectFileListenr.onSelectedFile(file);
+		TextView pageView = (TextView)v.findViewById(R.id.bookmark_item_page);
+		int      page     = Integer.parseInt(pageView.getText().toString());
+		
+		mOnSelectFileListenr.onSelectedFile(file, page);
 	}
 
 	@Override

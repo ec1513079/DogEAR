@@ -21,7 +21,7 @@ import android.widget.ImageView;
 import android.widget.ProgressBar;
 import android.widget.RelativeLayout;
 
-public class PDFPageItemView extends RelativeLayout {
+public class PDFPageTableItemView extends RelativeLayout {
 	
 	final MuPDFCore mMuPDFCore;
 	int mPage;
@@ -35,7 +35,7 @@ public class PDFPageItemView extends RelativeLayout {
 	
 	AsyncTask<Void, Void, Bitmap> mDrawTask;
 
-	public PDFPageItemView(Context context, MuPDFCore core, int page) {
+	public PDFPageTableItemView(Context context, MuPDFCore core, int page) {
 		super(context);
 		
 		mContext      = context;
