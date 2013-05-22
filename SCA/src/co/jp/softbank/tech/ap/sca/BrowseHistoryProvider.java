@@ -3,7 +3,6 @@ package co.jp.softbank.tech.ap.sca;
 import java.util.List;
 
 import android.content.ContentProvider;
-import android.content.ContentUris;
 import android.content.ContentValues;
 import android.content.Context;
 import android.content.UriMatcher;
@@ -13,27 +12,26 @@ import android.database.sqlite.SQLiteOpenHelper;
 import android.net.Uri;
 import android.provider.BaseColumns;
 
-public class BookmarkProvider extends ContentProvider {
-	
-    private static final String AUTHORITY = "co.jp.softbank.tech.ap.sca.BookmarkProvider";
+public class BrowseHistoryProvider extends ContentProvider {
+
+    private static final String AUTHORITY = "co.jp.softbank.tech.ap.sca.BrowseHistoryProvider";
     private static final UriMatcher sUriMatcher;
     static {
     	sUriMatcher = new UriMatcher(UriMatcher.NO_MATCH);
-        sUriMatcher.addURI(AUTHORITY, BookmarkDatabaseColumns.TABLE_NAME, 0);
+        sUriMatcher.addURI(AUTHORITY, BrowseHistoryDatabaseColumns.TABLE_NAME, 0);
     }
-    public static final String CONTENT_URI = "content://" + AUTHORITY + "/" + BookmarkDatabaseColumns.TABLE_NAME;
+    public static final String CONTENT_URI = "content://" + AUTHORITY + "/" + BrowseHistoryDatabaseColumns.TABLE_NAME;
 
-	public static interface BookmarkDatabaseColumns extends BaseColumns {
+	public static interface BrowseHistoryDatabaseColumns extends BaseColumns {
 		
 		public static final String CREATE_TABLE = "CREATE TABLE ";
 		public static final String DROP_TABLE   = "DROP TABLE IF EXISTS ";
 		
-		public static final String TABLE_NAME   = "bookmark";
+		public static final String TABLE_NAME   = "history";
 
 		public static final String DB_COLUMNS_CDATE = "cdate";
 		public static final String DB_COLUMNS_MDATE = "mdate";
 		public static final String DB_COLUMNS_HASH  = "hash";
-		public static final String DB_COLUMNS_PAGE  = "page";
 		public static final String DB_COLUMNS_TITLE = "title";
 		public static final String DB_COLUMNS_PATH  = "path";
 		
@@ -43,14 +41,13 @@ public class BookmarkProvider extends ContentProvider {
 			DB_COLUMNS_CDATE + " INTEGER," +
 			DB_COLUMNS_MDATE + " INTEGER," +
 			DB_COLUMNS_HASH  + " TEXT,"    +
-			DB_COLUMNS_PAGE  + " INTEGER," +
 			DB_COLUMNS_TITLE + " TEXT, "     +
 			DB_COLUMNS_PATH  + " TEXT"     + ")";
 		
 		public static final String SQL_DROP_TABLE = 
-	            DROP_TABLE + TABLE_NAME;
+				DROP_TABLE + TABLE_NAME;
 	}
-    
+
     private SQLiteOpenHelper mSQLiteOpenHelper;
 
 	@Override

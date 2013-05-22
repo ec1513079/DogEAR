@@ -33,8 +33,10 @@ public class MainLayoutActivity extends FragmentActivity implements OnSelectFile
 
 	/* FileSystem */
 	static private File mDirectory;
-	static private ArrayList<String> mHistory;
+	static private ArrayList<String> mBackHistory;
 	private FileSystemAsyncTask mFileSystemAsyncTask;
+	/* Adapter */
+	static private ShelfAdapter mShelfAdapter;
 
 	/* PDF Viewer */
 	boolean isPDFViewing;
@@ -51,9 +53,6 @@ public class MainLayoutActivity extends FragmentActivity implements OnSelectFile
 	private Fragment mContent;
 	private Fragment mSideContent;
 
-	/* Adapter */
-	private ShelfAdapter mShelfAdapter;
-	
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
@@ -68,8 +67,8 @@ public class MainLayoutActivity extends FragmentActivity implements OnSelectFile
 		setTitle(mDirectory.getAbsolutePath());
 		
 		// initial directory's history
-		if (mHistory == null)
-			mHistory = new ArrayList<String>();
+		if (mBackHistory == null)
+			mBackHistory = new ArrayList<String>();
 
 		// Activity layout
 		setContentView(R.layout.main_layout);
@@ -103,11 +102,14 @@ public class MainLayoutActivity extends FragmentActivity implements OnSelectFile
 			mTabHost.addTab(spec);
 		}
 		mTabHost.setOnTabChangedListener(this);
-		if (savedInstanceState != null && savedInstanceState.containsKey("currentTabID")) 
+		if (savedInstanceState != null && savedInstanceState.containsKey("currentTabID")) {
+			mTabHost.setCurrentTabByTag(savedInstanceState.getString("currentTabID"));
 			onTabChanged(savedInstanceState.getString("currentTabID"));
-		else 
+			
+		} else { 
+			mTabHost.setCurrentTabByTag(TAB_ID_CATEGORY);
 			onTabChanged(TAB_ID_CATEGORY);
-
+		}
 		
 		// set the Above View
 		if (savedInstanceState != null 
@@ -141,7 +143,7 @@ public class MainLayoutActivity extends FragmentActivity implements OnSelectFile
 	public void onSaveInstanceState(Bundle outState) {
 		super.onSaveInstanceState(outState);
 		outState.putString("mDirectoryPath", mDirectory.getAbsolutePath());
-		outState.putStringArray("mHistory", mHistory.toArray(new String[mHistory.size()]));
+		outState.putStringArray("mHistory", mBackHistory.toArray(new String[mBackHistory.size()]));
 		if (isPDFViewing && currentFile != null) {
 			outState.putBoolean("isPDFViewing", isPDFViewing);
 			outState.putString("currentFilePath", currentFile.getAbsolutePath());
@@ -175,8 +177,8 @@ public class MainLayoutActivity extends FragmentActivity implements OnSelectFile
 			if (isPDFViewing) {
 				showShelfFragment();
 				return false;
-			} else if (mHistory.size() > 0) {
-				String path_ = mHistory.remove(mHistory.size()-1);
+			} else if (mBackHistory.size() > 0) {
+				String path_ = mBackHistory.remove(mBackHistory.size()-1);
 				File file_ = new File(path_); 
 				changeDirectory(file_);
 				return false;
@@ -190,7 +192,7 @@ public class MainLayoutActivity extends FragmentActivity implements OnSelectFile
 	@Override
 	public void onSelectedFile (File file, int page) {
 		if (file.isDirectory()) {
-			mHistory.add(mDirectory.getAbsolutePath());
+			mBackHistory.add(mDirectory.getAbsolutePath());
 			changeDirectory(file);
 		} else if (file.getName().toLowerCase().endsWith(".pdf")) {
 			showPDFPagerFragment(file, page);
@@ -230,6 +232,7 @@ public class MainLayoutActivity extends FragmentActivity implements OnSelectFile
 			protected void onPostExecute(ArrayList<File> result) {
 				if (isCancelled()) result = null;
 				if (result == null) return;
+				if (mShelfAdapter == null) return;
 				// shelf adapter refresh
 				mShelfAdapter.clear();
 				for (int i = 0; i < result.size(); i++) {
@@ -300,6 +303,12 @@ public class MainLayoutActivity extends FragmentActivity implements OnSelectFile
 		replaceSideContent(sideFragment);
 	}
 	
+	void showBrowseHistoryFragment() {
+		
+		BrowseHistoryFragment sideFragment = new BrowseHistoryFragment();
+		replaceSideContent(sideFragment);
+	}
+	
 	@SuppressLint("DefaultLocale")
 	void showPDFPagerFragment(File file, int page) {
 		
@@ -318,20 +327,22 @@ public class MainLayoutActivity extends FragmentActivity implements OnSelectFile
 		bundle.putInt(PDFReaderFragment.PDF_DISPLAYED_PAGE, page);
 		fragment.setArguments(bundle);
 		replaceMainContent(fragment);
+				
+		// Register history
+		Util.addBrowseHistory(this, currentFile);
 	}
 
 	@Override
 	public void onTabChanged(String tabId) {
-
+		
 		if (tabId == TAB_ID_CATEGORY) {
 			showCategoryFragment();
 		} else if (tabId == TAB_ID_BOOKMARK) {
 			showBookmarkFragment();
 		} else if (tabId == TAB_ID_BROWSE_HISTORY) {
-			
+			showBrowseHistoryFragment();
 		} else if (tabId == TAB_ID_DOWNLOAD) {
 			
 		}
 	}
-
 }

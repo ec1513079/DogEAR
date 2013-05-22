@@ -17,14 +17,14 @@ import android.view.ViewGroup;
 import android.widget.ListView;
 import android.widget.TextView;
 
-public class BookmarkFragment extends ListFragment implements LoaderCallbacks<Cursor> {
+public class BrowseHistoryFragment extends ListFragment implements LoaderCallbacks<Cursor> {
 	
 	private OnSelectFileListener mOnSelectFileListenr;
 
 	private ListView mListView;
 	private SimpleCursorAdapter mListAdapter;
 	
-	public BookmarkFragment() {
+	public BrowseHistoryFragment() {
 	}
 	
 	@Override  
@@ -44,16 +44,16 @@ public class BookmarkFragment extends ListFragment implements LoaderCallbacks<Cu
 
 		mListAdapter = new SimpleCursorAdapter(
 				getActivity(),
-				R.layout.bookmark_list_item_layout,
+				R.layout.histroy_list_item_layout,
 				null,
 				new String[] { 
-					BookmarkProvider.BookmarkDatabaseColumns.DB_COLUMNS_TITLE,
-					BookmarkProvider.BookmarkDatabaseColumns.DB_COLUMNS_PATH,
-					BookmarkProvider.BookmarkDatabaseColumns.DB_COLUMNS_PAGE }, 
-				new int[] { R.id.bookmark_item_name, R.id.bookmark_item_path, R.id.bookmark_item_page },
+					BrowseHistoryProvider.BrowseHistoryDatabaseColumns.DB_COLUMNS_TITLE,
+					BrowseHistoryProvider.BrowseHistoryDatabaseColumns.DB_COLUMNS_PATH,
+					BrowseHistoryProvider.BrowseHistoryDatabaseColumns.DB_COLUMNS_CDATE }, 
+				new int[] { R.id.history_item_name, R.id.history_item_path, R.id.history_item_date },
 				SimpleCursorAdapter.FLAG_REGISTER_CONTENT_OBSERVER);
 		
-		View root = inflater.inflate(R.layout.bookmark_fragment, null);
+		View root = inflater.inflate(R.layout.history_fragment, null);
 		mListView = (ListView)root.findViewById(android.R.id.list);
 		mListView.setAdapter(mListAdapter);
 		
@@ -70,21 +70,18 @@ public class BookmarkFragment extends ListFragment implements LoaderCallbacks<Cu
 	public void onListItemClick(ListView l, View v, int position, long id) {
 		super.onListItemClick(l, v, position, id);
 		
-		TextView pathView = (TextView)v.findViewById(R.id.bookmark_item_path);
+		TextView pathView = (TextView)v.findViewById(R.id.history_item_path);
 		String   path     = pathView.getText().toString(); 
 		File     file     = new File(path);
 		
-		TextView pageView = (TextView)v.findViewById(R.id.bookmark_item_page);
-		int      page     = Integer.parseInt(pageView.getText().toString());
-		
-		mOnSelectFileListenr.onSelectedFile(file, page);
+		mOnSelectFileListenr.onSelectedFile(file, 0);
 	}
 
 	@Override
 	public Loader<Cursor> onCreateLoader(int arg0, Bundle arg1) {
 		return new CursorLoader(
 				this.getActivity(),
-				Uri.parse(BookmarkProvider.CONTENT_URI),
+				Uri.parse(BrowseHistoryProvider.CONTENT_URI),
 				null,
 				null,
 				null,

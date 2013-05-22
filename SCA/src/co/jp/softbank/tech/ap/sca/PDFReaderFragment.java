@@ -278,11 +278,6 @@ public class PDFReaderFragment extends Fragment {
 		if (core != null && mDocView != null)
 			outState.putInt(PDF_DISPLAYED_PAGE, mDocView.getDisplayedViewIndex());
 	}
-	
-	@Override
-	public void onConfigurationChanged(Configuration newConfig) {
-		super.onConfigurationChanged(newConfig);
-	}
 
 	@Override
 	public void onPause() {

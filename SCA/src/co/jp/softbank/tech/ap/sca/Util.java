@@ -19,13 +19,33 @@ public class Util {
 			long time = System.currentTimeMillis();
 			
 			ContentValues values = new ContentValues();
-			values.put(BookmarkProvider.BookmarkDatabaseColumns.DB_BOOKMARK_COLUMNS_CDATE, time);
-			values.put(BookmarkProvider.BookmarkDatabaseColumns.DB_BOOKMARK_COLUMNS_MDATE, time);
-			values.put(BookmarkProvider.BookmarkDatabaseColumns.DB_BOOKMARK_COLUMNS_PATH,  file.getAbsolutePath());
-			values.put(BookmarkProvider.BookmarkDatabaseColumns.DB_BOOKMARK_COLUMNS_TITLE, file.getName());
-			values.put(BookmarkProvider.BookmarkDatabaseColumns.DB_BOOKMARK_COLUMNS_PAGE,  page);
+			values.put(BookmarkProvider.BookmarkDatabaseColumns.DB_COLUMNS_CDATE, time);
+			values.put(BookmarkProvider.BookmarkDatabaseColumns.DB_COLUMNS_MDATE, time);
+			values.put(BookmarkProvider.BookmarkDatabaseColumns.DB_COLUMNS_PATH,  file.getAbsolutePath());
+			values.put(BookmarkProvider.BookmarkDatabaseColumns.DB_COLUMNS_TITLE, file.getName());
+			values.put(BookmarkProvider.BookmarkDatabaseColumns.DB_COLUMNS_PAGE,  page);
 			
 			context.getContentResolver().insert(Uri.parse(BookmarkProvider.CONTENT_URI), values);
+
+		} catch (NullPointerException e) {
+			e.printStackTrace();
+		}
+	}
+	
+	public static synchronized void addBrowseHistory(Context context, File file) {
+		
+		try {
+			if (context == null) throw new NullPointerException();
+
+			long time = System.currentTimeMillis();
+			
+			ContentValues values = new ContentValues();
+			values.put(BrowseHistoryProvider.BrowseHistoryDatabaseColumns.DB_COLUMNS_CDATE, time);
+			values.put(BrowseHistoryProvider.BrowseHistoryDatabaseColumns.DB_COLUMNS_MDATE, time);
+			values.put(BrowseHistoryProvider.BrowseHistoryDatabaseColumns.DB_COLUMNS_PATH,  file.getAbsolutePath());
+			values.put(BrowseHistoryProvider.BrowseHistoryDatabaseColumns.DB_COLUMNS_TITLE, file.getName());
+			
+			context.getContentResolver().insert(Uri.parse(BrowseHistoryProvider.CONTENT_URI), values);
 
 		} catch (NullPointerException e) {
 			e.printStackTrace();

@@ -25,6 +25,7 @@
         <activity android:name="com.artifex.mupdfdemo.MuPDFActivity"></activity>
         <activity android:name="PDFPageTableActivity"></activity>
         <provider android:name="BookmarkProvider" android:authorities="co.jp.softbank.tech.ap.sca.BookmarkProvider" android:exported="false"></provider>
+        <provider android:name="BrowseHistoryProvider" android:authorities="co.jp.softbank.tech.ap.sca.BrowseHistoryProvider" android:exported="false"></provider>
     </application>
 
 </manifest>

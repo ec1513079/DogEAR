@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:paddingLeft="8dp" >
+
+    <TextView
+        android:id="@+id/history_item_name"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/shelf_list_icon_size"
+        android:gravity="top|center_vertical"
+        android:text="hoge"
+        android:textAppearance="?android:attr/textAppearanceLarge" />
+
+    <TextView
+        android:id="@+id/history_item_path"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentTop="true"
+        android:visibility="invisible" />
+
+    <TextView
+        android:id="@+id/history_item_date"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignBottom="@+id/history_item_name"
+        android:layout_alignParentRight="true"
+        android:text="Small Text"
+        android:textAppearance="?android:attr/textAppearanceSmall" />
+
+</RelativeLayout>
