@@ -38,6 +38,9 @@ public class MainLayoutActivity extends FragmentActivity implements OnSelectFile
 	private FileSystemAsyncTask mFileSystemAsyncTask;
 	/* Adapter */
 	static private ShelfAdapter mShelfAdapter;
+	
+	/* Category */
+	private LoadCatalogListAsyncTask mLoadCatalogListAsyncTask;
 
 	/* PDF Viewer */
 	boolean isPDFViewing;
@@ -136,6 +139,9 @@ public class MainLayoutActivity extends FragmentActivity implements OnSelectFile
 			}
 		};
 		observer.startWatching();
+		
+		// Initial Category
+		createLoadCatalogListAsyncTask().execute();
 	}
 	
 	@Override
@@ -249,6 +255,22 @@ public class MainLayoutActivity extends FragmentActivity implements OnSelectFile
 			}
 		};
 		return mFileSystemAsyncTask;
+	}
+	
+	LoadCatalogListAsyncTask createLoadCatalogListAsyncTask() {
+		if (mLoadCatalogListAsyncTask != null) {
+			mLoadCatalogListAsyncTask.cancel(true);
+			mLoadCatalogListAsyncTask = null;
+		}
+
+		mLoadCatalogListAsyncTask =  new LoadCatalogListAsyncTask(this) {
+			@Override
+			protected void onPostExecute(String result) {
+				super.onPostExecute(result);
+				
+			}
+		};
+		return mLoadCatalogListAsyncTask;
 	}
 	
 	void changeDirectory(File file) {
