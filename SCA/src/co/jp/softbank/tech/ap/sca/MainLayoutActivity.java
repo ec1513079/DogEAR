@@ -12,6 +12,7 @@ import android.net.Uri;
 import android.os.Bundle;
 import android.os.Environment;
 import android.os.FileObserver;
+import android.preference.PreferenceManager;
 import android.annotation.SuppressLint;
 import android.app.Activity;
 import android.app.AlertDialog;
@@ -56,6 +57,9 @@ public class MainLayoutActivity extends FragmentActivity implements OnSelectFile
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
+		
+		// Set Preference by Default
+		PreferenceManager.setDefaultValues(this, R.xml.preference, true);
 
 		// check storage
 		if (!checkExternalStorageState())

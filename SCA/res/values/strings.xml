@@ -10,5 +10,12 @@
     <!-- Directory -->
     <string name="no_media_warning">Storage Media not present</string>
     <string name="no_media_hint">Sharing the storage media with a PC can make it inaccessible</string>
-
+    
+    <!-- Preference -->
+    <string name="preference_key_category_update">category_update</string>
+    <string name="preference_key_connect_url">connect_url</string>
+    <string name="preference_key_user_name">user_name</string>
+    <string name="preference_key_page_move_by_tap">page_move_by_tap</string>
+    <string name="preference_key_presentation_mode">presentation_mode</string>
+    
 </resources>

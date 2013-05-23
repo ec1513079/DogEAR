@@ -4,15 +4,21 @@ import java.io.File;
 
 import android.content.ContentValues;
 import android.content.Context;
+import android.content.SharedPreferences;
 import android.content.pm.PackageInfo;
 import android.content.pm.PackageManager;
 import android.content.pm.PackageManager.NameNotFoundException;
 import android.net.Uri;
+import android.preference.PreferenceManager;
 import android.provider.Browser.BookmarkColumns;
 import android.telephony.TelephonyManager;
 import android.text.format.Time;
 
 public class Util {
+	
+	/*
+	 * SQlite用ユーティリティ
+	 */
 	
 	public static synchronized void addBookmark(Context context, File file, int page) {
 
@@ -55,6 +61,10 @@ public class Util {
 		}
 	}
 	
+	/*
+	 * 設定用ユーティリティ
+	 */
+	
 	public static String getApplicationVersion(Context context) {
 		String versionName = null;
         PackageManager packageManager = context.getPackageManager();
@@ -66,4 +76,37 @@ public class Util {
 		}
 		return versionName;
 	}
+	
+	public static String getCategoryUpdate(Context context) {
+		SharedPreferences sharedPreference = PreferenceManager.getDefaultSharedPreferences(context);
+		return sharedPreference.getString(context.getResources().getString(R.string.preference_key_category_update), null);
+	}
+	
+	public static void setCategoryUpdate(Context context, String value) {
+		SharedPreferences sharedPreference = PreferenceManager.getDefaultSharedPreferences(context);
+		sharedPreference.edit().putString(context.getResources().getString(R.string.preference_key_category_update), value);
+	}
+
+	public static String getContentsSize(Context context) {
+		return "???";
+	}
+	
+	public static String getCacheSize(Context context) {
+		return "???";
+	}
+
+	public static String getUsableSize(Context context) {
+		return "???";
+	}
+
+	public static String getConnectURL(Context context) {
+		SharedPreferences sharedPreference = PreferenceManager.getDefaultSharedPreferences(context);
+		return sharedPreference.getString(context.getResources().getString(R.string.preference_key_connect_url), null);
+	}
+	
+	public static String getUserName(Context context) {
+		SharedPreferences sharedPreference = PreferenceManager.getDefaultSharedPreferences(context);
+		return sharedPreference.getString(context.getResources().getString(R.string.preference_key_user_name), null);
+	}
+	
 }
