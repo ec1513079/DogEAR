@@ -11,11 +11,11 @@
     <application
         android:allowBackup="true"
         android:icon="@drawable/ic_launcher"
-        android:label="@string/app_name"
+        android:label="@string/app_name_dogear"
         android:theme="@style/AppTheme" >
         <activity
             android:name="com.ec1513079.dogear.MainLayoutActivity"
-            android:label="@string/app_name" android:theme="@style/SCAAppTheme">
+            android:label="@string/app_name" android:theme="@style/DogEARAppTheme">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
@@ -25,8 +25,8 @@
         <activity android:name="com.artifex.mupdfdemo.MuPDFActivity"></activity>
         <activity android:name="PDFPageTableActivity"></activity>
         <activity android:name="SCAPreferenceActivity"></activity>
-        <provider android:name="BookmarkProvider" android:authorities="co.jp.softbank.tech.ap.sca.BookmarkProvider" android:exported="false"></provider>
-        <provider android:name="BrowseHistoryProvider" android:authorities="co.jp.softbank.tech.ap.sca.BrowseHistoryProvider" android:exported="false"></provider>
+        <provider android:name="BookmarkProvider" android:authorities="com.ec1513079.dogear.BookmarkProvider" android:exported="false"></provider>
+        <provider android:name="BrowseHistoryProvider" android:authorities="com.ec1513079.dogear.BrowseHistoryProvider" android:exported="false"></provider>
     </application>
 
 </manifest>

@@ -15,7 +15,7 @@ import android.provider.BaseColumns;
 
 public class BookmarkProvider extends ContentProvider {
 	
-    private static final String AUTHORITY = "co.jp.softbank.tech.ap.sca.BookmarkProvider";
+    private static final String AUTHORITY = "com.ec1513079.dogear.BookmarkProvider";
     private static final UriMatcher sUriMatcher;
     static {
     	sUriMatcher = new UriMatcher(UriMatcher.NO_MATCH);

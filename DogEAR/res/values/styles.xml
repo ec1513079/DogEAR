@@ -18,14 +18,14 @@
     </style>
     
     <!-- SCA Theme -->
-    <style name="SCAAppTheme" parent="AppTheme">
-        <item name="android:actionBarStyle">@style/SCAActionBarStyle</item>
+    <style name="DogEARAppTheme" parent="AppTheme">
+        <item name="android:actionBarStyle">@style/DogEARActionBarStyle</item>
     </style>
-    <style name="SCAActionBarStyle" parent="@android:style/Widget.Holo.Light.ActionBar">
+    <style name="DogEARActionBarStyle" parent="@android:style/Widget.Holo.Light.ActionBar">
         <item name="android:background">@drawable/nav_bg</item>
-        <item name="android:titleTextStyle">@style/SCAActionBarTitleTextStyle</item>
+        <item name="android:titleTextStyle">@style/DogEARActionBarTitleTextStyle</item>
     </style>
-    <style name="SCAActionBarTitleTextStyle" parent="@android:style/TextAppearance.Holo.Widget.ActionBar.Title">
+    <style name="DogEARActionBarTitleTextStyle" parent="@android:style/TextAppearance.Holo.Widget.ActionBar.Title">
         <item name="android:textColor">@color/white</item>
     </style>
 

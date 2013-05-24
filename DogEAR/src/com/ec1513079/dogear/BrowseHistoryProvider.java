@@ -14,7 +14,7 @@ import android.provider.BaseColumns;
 
 public class BrowseHistoryProvider extends ContentProvider {
 
-    private static final String AUTHORITY = "co.jp.softbank.tech.ap.sca.BrowseHistoryProvider";
+    private static final String AUTHORITY = "com.ec1513079.dogear.BrowseHistoryProvider";
     private static final UriMatcher sUriMatcher;
     static {
     	sUriMatcher = new UriMatcher(UriMatcher.NO_MATCH);
