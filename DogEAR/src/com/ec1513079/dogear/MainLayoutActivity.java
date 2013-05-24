@@ -47,9 +47,6 @@ public class MainLayoutActivity extends FragmentActivity implements OnSelectFile
 	private FileSystemAsyncTask mFileSystemAsyncTask;
 	/* Adapter */
 	static private ShelfAdapter mShelfAdapter;
-	
-	/* Category */
-	private LoadCatalogListAsyncTask mLoadCatalogListAsyncTask;
 
 	/* PDF Viewer */
 	boolean isPDFViewing;
@@ -148,9 +145,6 @@ public class MainLayoutActivity extends FragmentActivity implements OnSelectFile
 			}
 		};
 		observer.startWatching();
-		
-		// Initial Category
-		createLoadCatalogListAsyncTask().execute();
 	}
 	
 	@Override
@@ -264,57 +258,6 @@ public class MainLayoutActivity extends FragmentActivity implements OnSelectFile
 			}
 		};
 		return mFileSystemAsyncTask;
-	}
-	
-	LoadCatalogListAsyncTask createLoadCatalogListAsyncTask() {
-		if (mLoadCatalogListAsyncTask != null) {
-			mLoadCatalogListAsyncTask.cancel(true);
-			mLoadCatalogListAsyncTask = null;
-		}
-
-		mLoadCatalogListAsyncTask =  new LoadCatalogListAsyncTask(this) {
-			@Override
-			protected void onPostExecute(String result) {
-				super.onPostExecute(result);
-
-				if (mShelfAdapter == null) return;
-				// shelf adapter refresh
-				mShelfAdapter.clear();
-				
-				try {
-					
-					JSONObject object = new JSONObject(result);
-					
-					String fileserver = object.getJSONArray("fileservers").getString(0);
-					Util.setFileServerUrl(MainLayoutActivity.this, fileserver);
-					
-					JSONArray catalogs   = object.getJSONArray("catalog");
-					for (int i = 0; i < catalogs.length(); i++) {
-						JSONObject catalog = catalogs.getJSONObject(i);
-						switch (catalog.getInt("type")) {
-						// type: CATEGORY (1) /FILE (2) /LINK (3) (定数)
-						case 1: 
-							String children = catalog.getString("children");
-							break;
-
-						case 2: 
-							break;
-
-						case 3: 
-							break;
-						}
-					}
-					
-					
-					int i = 0; i++;
-				} catch (JSONException e) {
-					e.printStackTrace();
-					Toast.makeText(MainLayoutActivity.this, "カテゴリーに失敗しました", Toast.LENGTH_LONG).show();
-					return;
-				}
-			}
-		};
-		return mLoadCatalogListAsyncTask;
 	}
 	
 	void changeDirectory(File file) {

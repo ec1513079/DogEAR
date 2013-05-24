@@ -24,33 +24,6 @@ import android.text.format.Time;
 public class Util {
 	
 	/*
-	 * Networkユーティリティ
-	 */
-	
-	public static String createRequestBody(Context context) {
-		
-		String androidId   = Settings.Secure.getString(context.getContentResolver(), Settings.Secure.ANDROID_ID);
-		String bundleModel = Build.MODEL;
-		String sysversion  = Build.VERSION.RELEASE;
-		
-		JSONObject json = new JSONObject();
-		try {
-			json.put("app_id", 1);
-			json.put("login", Util.getUserName(context));
-			json.put("appversion", getApplicationVersion(context));
-			json.put("version", 1);
-			json.put("debug", true);
-			json.put("udid", androidId);
-			json.put("hwversion", bundleModel);
-			json.put("sysversion", sysversion);
-		} catch (JSONException e) {
-			e.printStackTrace();
-			return null;
-		}
-		return json.toString();
-	}
-	
-	/*
 	 * SQlite用ユーティリティ
 	 */
 	

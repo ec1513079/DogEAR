@@ -94,8 +94,4 @@ public class ShelfAdapter extends BaseAdapter {
 		else if (file.getName().toLowerCase().endsWith(".pdf"))
 			add(new ShelfItem(ShelfItem.Type.DOC, file.getName(), file.getAbsolutePath()));
 	}
-	
-	public void addCategory() {
-		
-	}
 }
