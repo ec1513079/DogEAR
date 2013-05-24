@@ -141,4 +141,13 @@ public class Util {
 		return sharedPreference.getString(context.getResources().getString(R.string.preference_key_user_name), null);
 	}
 	
+	public static String getFileserverUrl(Context context) {
+		SharedPreferences sharedPreference = PreferenceManager.getDefaultSharedPreferences(context);
+		return sharedPreference.getString(context.getResources().getString(R.string.preference_key_fileserver_url), null);
+	}
+	
+	public static void setFileServerUrl(Context context, String value) {
+		SharedPreferences sharedPreference = PreferenceManager.getDefaultSharedPreferences(context);
+		sharedPreference.edit().putString(context.getResources().getString(R.string.preference_key_fileserver_url), value);
+	}
 }

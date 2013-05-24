@@ -73,6 +73,11 @@ public class ShelfAdapter extends BaseAdapter {
 	public void clear() {
 		mItems.clear();
 	}
+
+	public void add(ShelfItem item) {
+		mItems.add(item);
+		notifyDataSetChanged();
+	}
 	
 	public void addParent(File file) {
 		if (file == null) return;
@@ -87,9 +92,8 @@ public class ShelfAdapter extends BaseAdapter {
 		else if (file.getName().toLowerCase().endsWith(".pdf"))
 			add(new ShelfItem(ShelfItem.Type.DOC, file.getName(), file.getAbsolutePath()));
 	}
-
-	public void add(ShelfItem item) {
-		mItems.add(item);
-		notifyDataSetChanged();
+	
+	public void addCategory() {
+		
 	}
 }

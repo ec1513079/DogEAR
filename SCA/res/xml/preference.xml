@@ -19,6 +19,9 @@
 </PreferenceCategory><PreferenceCategory android:title="License">
     <Preference android:key="preference_copyright_law" android:title="著作権情報"/>
 </PreferenceCategory>
+<PreferenceScreen android:shouldDisableView="true" android:selectable="false" android:enabled="false">
+    <Preference android:key="@string/preference_key_fileserver_url"/>
+</PreferenceScreen>
     
 
 </PreferenceScreen>

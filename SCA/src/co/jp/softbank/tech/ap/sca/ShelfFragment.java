@@ -50,7 +50,7 @@ public class ShelfFragment extends GridFragment {
 		super.onGridItemClick(g, v, position, id);
 		
 		ShelfItem item = (ShelfItem) getGridView().getItemAtPosition(position);
-		File file = new File(item.path);
+		File file = new File(item.inner_path);
 		
 		mOnSelectFileListenr.onSelectedFile(file, 0);
 	}

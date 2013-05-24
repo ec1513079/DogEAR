@@ -68,6 +68,6 @@ public class LoadCatalogListAsyncTask extends AsyncTask<Void, Void, String> {
 
 	@Override
 	protected void onPostExecute(String result) {
-		Toast.makeText(mContext, "カテゴリーを更新しました", Toast.LENGTH_LONG).show();
+		if (isCancelled()) result = null;
 	}
 }

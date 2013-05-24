@@ -3,6 +3,12 @@ package co.jp.softbank.tech.ap.sca;
 import java.io.File;
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.Iterator;
+
+import org.json.JSONArray;
+import org.json.JSONException;
+import org.json.JSONObject;
+import org.json.JSONTokener;
 
 import com.artifex.mupdfdemo.MuPDFActivity;
 import com.slidingmenu.lib.SlidingMenu;
@@ -27,6 +33,7 @@ import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
 import android.widget.TabHost;
+import android.widget.Toast;
 import android.widget.TabHost.OnTabChangeListener;
 import android.widget.TabHost.TabSpec;
 
@@ -267,7 +274,42 @@ public class MainLayoutActivity extends FragmentActivity implements OnSelectFile
 			@Override
 			protected void onPostExecute(String result) {
 				super.onPostExecute(result);
+
+				if (mShelfAdapter == null) return;
+				// shelf adapter refresh
+				mShelfAdapter.clear();
 				
+				try {
+					
+					JSONObject object = new JSONObject(result);
+					
+					String fileserver = object.getJSONArray("fileservers").getString(0);
+					Util.setFileServerUrl(MainLayoutActivity.this, fileserver);
+					
+					JSONArray catalogs   = object.getJSONArray("catalog");
+					for (int i = 0; i < catalogs.length(); i++) {
+						JSONObject catalog = catalogs.getJSONObject(i);
+						switch (catalog.getInt("type")) {
+						// type: CATEGORY (1) /FILE (2) /LINK (3) (定数)
+						case 1: 
+							String children = catalog.getString("children");
+							break;
+
+						case 2: 
+							break;
+
+						case 3: 
+							break;
+						}
+					}
+					
+					
+					int i = 0; i++;
+				} catch (JSONException e) {
+					e.printStackTrace();
+					Toast.makeText(MainLayoutActivity.this, "カテゴリーに失敗しました", Toast.LENGTH_LONG).show();
+					return;
+				}
 			}
 		};
 		return mLoadCatalogListAsyncTask;

@@ -17,5 +17,6 @@
     <string name="preference_key_user_name">user_name</string>
     <string name="preference_key_page_move_by_tap">page_move_by_tap</string>
     <string name="preference_key_presentation_mode">presentation_mode</string>
+    <string name="preference_key_fileserver_url">fileserver_url</string>
     
 </resources>
