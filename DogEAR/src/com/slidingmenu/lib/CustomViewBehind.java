@@ -13,7 +13,7 @@ import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewGroup;
 
-import co.jp.softbank.tech.ap.sca.R;
+import com.ec1513079.dogear.R;
 
 import com.slidingmenu.lib.SlidingMenu.CanvasTransformer;
 

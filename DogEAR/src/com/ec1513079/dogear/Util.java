@@ -1,9 +1,11 @@
-package co.jp.softbank.tech.ap.sca;
+package com.ec1513079.dogear;
 
 import java.io.File;
 
 import org.json.JSONException;
 import org.json.JSONObject;
+
+import com.ec1513079.dogear.R;
 
 import android.content.ContentValues;
 import android.content.Context;

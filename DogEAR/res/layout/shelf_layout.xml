@@ -4,7 +4,7 @@
     android:layout_height="match_parent"
     android:background="@drawable/tiled_background" >
 
-    <co.jp.softbank.tech.ap.sca.ShelfGridView
+    <com.ec1513079.dogear.ShelfGridView
         android:id="@android:id/list"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
@@ -14,6 +14,6 @@
         android:stretchMode="columnWidth"
         android:background="@drawable/bookshelf_portrait" >
 
-    </co.jp.softbank.tech.ap.sca.ShelfGridView>
+    </com.ec1513079.dogear.ShelfGridView>
 
 </RelativeLayout>

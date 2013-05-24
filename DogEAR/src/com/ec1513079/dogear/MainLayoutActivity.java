@@ -1,4 +1,4 @@
-package co.jp.softbank.tech.ap.sca;
+package com.ec1513079.dogear;
 
 import java.io.File;
 import java.util.ArrayList;
@@ -9,6 +9,8 @@ import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 import org.json.JSONTokener;
+
+import com.ec1513079.dogear.R;
 
 import com.artifex.mupdfdemo.MuPDFActivity;
 import com.slidingmenu.lib.SlidingMenu;

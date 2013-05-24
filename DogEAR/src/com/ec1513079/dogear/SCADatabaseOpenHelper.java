@@ -1,7 +1,8 @@
-package co.jp.softbank.tech.ap.sca;
+package com.ec1513079.dogear;
 
-import co.jp.softbank.tech.ap.sca.BookmarkProvider.BookmarkDatabaseColumns;
-import co.jp.softbank.tech.ap.sca.BrowseHistoryProvider.BrowseHistoryDatabaseColumns;
+import com.ec1513079.dogear.BookmarkProvider.BookmarkDatabaseColumns;
+import com.ec1513079.dogear.BrowseHistoryProvider.BrowseHistoryDatabaseColumns;
+
 import android.content.Context;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteDatabase.CursorFactory;

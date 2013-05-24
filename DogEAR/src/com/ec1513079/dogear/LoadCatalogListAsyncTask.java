@@ -1,4 +1,4 @@
-package co.jp.softbank.tech.ap.sca;
+package com.ec1513079.dogear;
 
 import java.io.IOException;
 import java.io.UnsupportedEncodingException;
@@ -15,6 +15,8 @@ import org.apache.http.entity.StringEntity;
 import org.apache.http.impl.client.DefaultHttpClient;
 import org.apache.http.message.BasicNameValuePair;
 import org.apache.http.util.EntityUtils;
+
+import com.ec1513079.dogear.R;
 
 import android.content.Context;
 import android.content.res.Resources;

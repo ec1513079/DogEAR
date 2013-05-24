@@ -1,4 +1,4 @@
-package co.jp.softbank.tech.ap.sca;
+package com.ec1513079.dogear;
 
 import com.artifex.mupdfdemo.MuPDFCore;
 

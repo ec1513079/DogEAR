@@ -1,10 +1,12 @@
-package co.jp.softbank.tech.ap.sca;
+package com.ec1513079.dogear;
 
 import java.io.File;
 import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.LinkedList;
 import java.util.Locale;
+
+import com.ec1513079.dogear.R;
 
 import android.annotation.SuppressLint;
 import android.graphics.Color;

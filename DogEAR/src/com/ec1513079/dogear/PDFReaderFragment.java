@@ -1,4 +1,4 @@
-package co.jp.softbank.tech.ap.sca;
+package com.ec1513079.dogear;
 
 import java.io.File;
 import java.io.InputStream;
@@ -43,8 +43,8 @@ import android.widget.ViewAnimator;
 
 import com.artifex.mupdfdemo.*;
 
-import co.jp.softbank.tech.ap.sca.R;
-import co.jp.softbank.tech.ap.sca.R.layout;
+import com.ec1513079.dogear.R;
+import com.ec1513079.dogear.R.layout;
 
 public class PDFReaderFragment extends Fragment {
 	
@@ -193,7 +193,7 @@ public class PDFReaderFragment extends Fragment {
 		// Make the buttons overlay, and store all its
 		// controls in variables
 		mButtonsView = getLayoutInflater(savedInstanceState)
-				.inflate(co.jp.softbank.tech.ap.sca.R.layout.overlay_layout,null);
+				.inflate(com.ec1513079.dogear.R.layout.overlay_layout,null);
 		mPageSlider = (SeekBar)mButtonsView.findViewById(R.id.pageSlider);
 		mPageNumberView = (TextView)mButtonsView.findViewById(R.id.pageNumber);
 		mInfoView = (TextView)mButtonsView.findViewById(R.id.info);

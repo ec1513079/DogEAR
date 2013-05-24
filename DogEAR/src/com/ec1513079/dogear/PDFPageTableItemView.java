@@ -1,6 +1,8 @@
-package co.jp.softbank.tech.ap.sca;
+package com.ec1513079.dogear;
 
 import java.lang.ref.WeakReference;
+
+import com.ec1513079.dogear.R;
 
 import com.artifex.mupdfdemo.BitmapHolder;
 import com.artifex.mupdfdemo.MuPDFCore;

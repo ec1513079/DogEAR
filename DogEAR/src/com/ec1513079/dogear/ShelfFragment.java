@@ -1,6 +1,8 @@
-package co.jp.softbank.tech.ap.sca;
+package com.ec1513079.dogear;
 
 import java.io.File;
+
+import com.ec1513079.dogear.R;
 
 import com.tombarrasso.android.app.GridFragment;
 

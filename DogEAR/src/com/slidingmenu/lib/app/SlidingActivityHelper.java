@@ -10,7 +10,7 @@ import android.view.ViewGroup.LayoutParams;
 
 import com.slidingmenu.lib.SlidingMenu;
 
-import co.jp.softbank.tech.ap.sca.R;
+import com.ec1513079.dogear.R;
 
 public class SlidingActivityHelper {
 
